@@ -1,0 +1,6 @@
+[submodule "python-terminal-color"]
+	path = python_terminal_color
+	url = https://github.com/reorx/python-terminal-color
+[submodule "python_terminal_color"]
+	path = python_terminal_color
+	url = https://github.com/reorx/python-terminal-color.git
