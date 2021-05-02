@@ -24,7 +24,7 @@ class Player():
     """
     deck = None
 
-    def __init__(self, name, hand):
+    def __init__(self, name, hand=[]):
         self.name = name
         self.hand = hand
         self.finished = False
@@ -88,13 +88,17 @@ class Player():
         """Check if the Player has an Ace."""
         return any(card.value == 11 for card in self.hand)
 
+    def reset(self):
+        """Reset the player to a default state, and clear their hand."""
+        self.__init__(name=self.name)
+
 
 class Dealer(Player):
     """
     A non-interactive player with a hand.
     Shares a deck with other players and dealers.
     """
-    def __init__(self, hand, name=None):
+    def __init__(self, hand=[], name=None):
         if name is None:
             try:
                 with open("names_d.txt", mode="rt") as names:
@@ -123,7 +127,7 @@ class Computer(Dealer):
     A non-interactive player with a hand.
     Shares a deck with other players and dealers.
     """
-    def __init__(self, hand, name=None):
+    def __init__(self, hand=[], name=None):
         if name is None:
             try:
                 with open("names_c.txt", mode="rt") as names:

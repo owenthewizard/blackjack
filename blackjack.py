@@ -61,6 +61,10 @@ class Blackjack():
             self.decks = input("Try again. > ")
         self.decks = int(self.decks)
 
+        self.players = [Player(name) for name in self.humans]
+        self.players.extend(Computer() for _ in range(self.computers))
+        self.dealer = Dealer()
+
         self.reset()
 
     def play(self):
@@ -98,14 +102,9 @@ class Blackjack():
         # initializes the deck for Computers, Dealers, and Players
         Player.deck = self.deck
 
-        self.players = [
-            Player(name, [self.deck.pop()]) for name in self.humans
-        ]
-        self.players.extend([
-            Computer(
-                [self.deck.pop()]
-            ) for _ in range(int(self.computers))
-        ])
+        for player in self.players:
+            player.reset()
+            player.hand = [self.deck.pop()]
 
         # dealer starts with two cards, one flipped over
         dealer_card = self.deck.pop()
@@ -113,7 +112,8 @@ class Blackjack():
             0, None, None, 0x1F0A0,
             lambda x: color.white_bg(color.black(x))
         )
-        self.dealer = Dealer([fake_card, self.deck.pop()])
+        self.dealer.reset()
+        self.dealer.hand = [fake_card, self.deck.pop()]
         self.dealer.print_hand()
         self.dealer.hand[0] = dealer_card
 
