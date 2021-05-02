@@ -20,7 +20,7 @@ def _random_line(file):
 class Player():
     """
     An interactive Player with a hand.
-    Shares a deck with other players and dealers.
+    Shares a deck with other players.
     """
     deck = None
 
@@ -28,6 +28,7 @@ class Player():
         self.name = name
         self.hand = hand
         self.finished = False
+        self.victory = 0
 
     def move(self):
         """Process player moves, prompting for action."""
@@ -90,7 +91,9 @@ class Player():
 
     def reset(self):
         """Reset the player to a default state, and clear their hand."""
+        victory = self.victory
         self.__init__(name=self.name)
+        self.victory = victory
 
 
 class Dealer(Player):

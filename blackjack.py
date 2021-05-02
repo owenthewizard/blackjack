@@ -81,11 +81,14 @@ class Blackjack():
             player.print_hand()
             if player.score() == 21 and len(player.hand) == 2:
                 print(f"Congratulations {player.name}, you're a natural!", end="\n\n")
+                player.victory += 1
             elif player.score() <= 21:
                 if self.dealer.score() > 21:
                     print(f"{self.dealer.name} busted! Great job {player.name}!", end="\n\n")
+                    player.victory += 1
                 elif player.score() > self.dealer.score():
                     print(f"{player.score()} beats {self.dealer.score()}. Congratulations {player.name}!", end="\n\n")
+                    player.victory += 1
                 elif player.score() < self.dealer.score():
                     print(f"{self.dealer.score()} beats {player.score()}. Too bad {player.name}!", end="\n\n")
                 else:
@@ -134,3 +137,6 @@ if __name__ == "__main__":
         pass
     except (EOFError, KeyboardInterrupt):
         print()
+
+    for player in game.players:
+        print(f"{player.name} beat {game.dealer.name} {player.victory} times.")
