@@ -33,20 +33,22 @@ class Player():
         """Process player moves, prompting for action."""
         if self.finished:
             return
-        # show the player their state
-        self.print_hand()
 
-        # check victory/loss conditions
-        if self.score() == 21 and len(self.hand) == 2:
-            # print("Congratulations, you're a natural!")
-            self.finished = True
-            return
         while self.has_ace() and self.score() > 21:
             for card in self.hand:
                 # flip aces, as needed
                 if card.value == 11:
                     card.value = 1
                     break
+
+        # show the player their state
+        self.print_hand()
+
+        # check victory/loss conditions
+        if self.score() == 21:
+            self.finished = True
+            return
+
         if self.score() > 21:
             # print("Busted!")
             self.finished = True
